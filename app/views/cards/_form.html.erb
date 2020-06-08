@@ -1,0 +1,39 @@
+<%= form_with(model: card, local: true) do |form| %>
+  <% if card.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
+
+      <ul>
+      <% card.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <% if card.persisted? %>
+      <div class="float-right">
+        <%= link_to 'Destroy', card, method: :delete, class: "text-danger", data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+
+    <%= form.submit class: 'btn btn-primary' %>
+
+    <% if card.persisted? %>
+      <%= link_to "Cancel", card, class: "btn btn-link" %>
+    <% else %>
+      <%= link_to "Cancel", cards_path, class: "btn btn-link" %>
+    <% end %>
+  </div>
+<% end %>
